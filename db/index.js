@@ -9,7 +9,7 @@ class DB {
     return this.connection.promise().query('SELECT id, name FROM departments;')
   }
 
-  findAllId (id) {
+  findByDepartmentId (id) {
     return this.connection.promise().query('SELECT id, name FROM departments WHERE id = ?;', id);
   }
 }
