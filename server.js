@@ -19,7 +19,7 @@ function begin() {
           value: 'ALL'
         },
         {
-          name: 'Select by ID',
+          name: 'Select by Department Name',
           value: 'BY_ID'
         },
         {
@@ -60,8 +60,8 @@ function selectOne () {
     {
       type: 'list',
       name: 'id',
-      message: 'What is the department ID?',
-      choices: departments.map(departments => departments.id)
+      message: 'What is the department Name?',
+      choices: departments.map(d => ({value: d.id, name: d.name}))
     }
   ])
   // })
