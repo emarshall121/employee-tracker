@@ -65,7 +65,7 @@ function begin() {
         selectAllRoles();
         break;
       case 'ALL_EMP':
-        findAllEmployees();
+        selectAllEmployees();
         break;      
       case 'ADD_DEPT':
         addDept();
@@ -102,7 +102,7 @@ function selectAllRoles() {
   })
 }
 
-function selectAllEmployess() {
+function selectAllEmployees() {
   db.findAllEmployees()
   .then(([data]) => {
     console.log(data)
