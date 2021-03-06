@@ -2,11 +2,6 @@ const { prompt } = require('inquirer');
 
 const db = require('./db');
 
-// db.findAllDepartments()
-// .then(departments => {
-//   console.log(departments);
-// });
-
 function begin() {
   prompt([
     {
@@ -31,7 +26,7 @@ function begin() {
           value: 'BY_ID'
         },
         {
-          name: 'Add A Departments',
+          name: 'Add A Department',
           value: 'ADD_DEPT'
         },
         {
@@ -110,11 +105,34 @@ function selectAllEmployees() {
   })
 }
 
+// function addDept() {
+//   db.addDepartment()
+//   .then(([data]) => {
+//     console.log(data)
+//   prompt ([
+//     {
+//       type: 'input',
+//       name: 'newDept',
+//       message: 'What is the name of the department you are adding?',
+//     }
+//   ])
+//     begin();
+//   })
+// }
+
 function addDept() {
-  db.addDepartments()
-  .then(([data]) => {
-    console.log(data)
-    begin();
+  prompt({
+    
+      type: "input",
+      message: "What is the name of the department?",
+      name: "deptName"
+
+  }).then(function(answer){
+      db.addDepartment(name)
+      .then(([answer])=>{
+        console.log(answer);
+        begin();
+      })
   })
 }
 
@@ -162,14 +180,6 @@ function selectOne () {
       choices: departments.map(d => ({value: d.id, name: d.name}))
     }
   ])
-  // })
-  // prompt([
-  //   {
-  //     type: 'input',
-  //     name: 'id',
-  //     message: 'What is the department id?',
-  //   }
-  // ])
   .then(({id}) => {
     db.findByDepartmentId(parseInt(id))
     .then(([data]) => {

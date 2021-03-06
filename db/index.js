@@ -14,12 +14,16 @@ class DB {
   }
 
   findAllRoles () {
-    return this.connection.promise().query('SELECT id, title, salary, department_id from role;')
+    return this.connection.promise().query(
+      `SELECT  title as job_title, role.id as role_id, departments.name as department, salary
+      FROM role
+      LEFT JOIN departments on role.department_id = departments.id ;`
+      )
   }
 
   findAllEmployees () {
     return this.connection.promise().query(
-      `SELECT employee.id, employee.first_name, employee.last_name, role.title, departments.name AS department, role.salary, CONCAT(e.first_name, " ", e.last_name) AS manager 
+      `SELECT employee.id as employee_id, employee.first_name, employee.last_name, role.title as job_title, departments.name AS department, role.salary, CONCAT(e.first_name, " ", e.last_name) AS manager 
       FROM employee 
       INNER JOIN role on (employee.role_id = role.id)
       INNER JOIN departments on role.department_id=departments.id
@@ -27,9 +31,14 @@ class DB {
     )
   }
 
-  addDepartment () {
-    return this.connection.promise().query('SELECT id, title, salary, department_id from role;')
-  }
+  addDepartment() {
+    return this.connection.promise().query (
+      'INSERT INTO departments SET ?',
+      {
+        name: answer.deptName
+      }
+    );
+  };
 }
 
 
