@@ -15,15 +15,39 @@ function begin() {
       message: 'What would you like to select?',
       choices: [
         {
-          name: 'Select All',
-          value: 'ALL'
+          name: 'Select All Departments',
+          value: 'ALL_DEPT'
+        },
+        {
+          name: 'Select All Roles',
+          value: 'ALL_ROLES'
+        },
+        {
+          name: 'Select All Employees',
+          value: 'ALL_EMP'
         },
         {
           name: 'Select by Department Name',
           value: 'BY_ID'
         },
         {
-          name: 'Stop',
+          name: 'Add A Departments',
+          value: 'ADD_DEPT'
+        },
+        {
+          name: 'Add A Role',
+          value: 'ADD_ROLE'
+        },
+        {
+          name: 'Add An Employee',
+          value: 'ADD_EMP'
+        },
+        {
+          name: 'Update Employee Role',
+          value: 'UPDATE_ROLE'
+        },
+        {
+          name: 'Done',
           value: 'END'
         }
       ]
@@ -31,11 +55,29 @@ function begin() {
   ])
   .then (({queryType}) => {
     switch (queryType) {
-      case 'ALL':
-        selectAll();
+      case 'ALL_DEPT':
+        selectAllDept();
         break;
       case 'BY_ID':
         selectOne();
+        break;
+      case 'ALL_ROLES':
+        selectAllRoles();
+        break;
+      case 'ALL_EMP':
+        findAllEmployees();
+        break;      
+      case 'ADD_DEPT':
+        addDept();
+        break;
+      case 'ADD_ROLE':
+        addRole();
+        break;
+      case 'ADD_EMP':
+        addEmployee();
+        break;
+      case 'UPDATE_ROLE':
+        updateRole();
         break;
       default:
         db.connection.end()
@@ -44,8 +86,64 @@ function begin() {
   })
 }
 
-function selectAll() {
+function selectAllDept() {
   db.findAllDepartments()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function selectAllRoles() {
+  db.findAllRoles()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function selectAllEmployess() {
+  db.findAllEmployees()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function addDept() {
+  db.addDepartments()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function addRole() {
+  db.addRoles()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function addEmployee() {
+  db.addEmployee()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function selectAllDept() {
+  db.findAllDepartments()
+  .then(([data]) => {
+    console.log(data)
+    begin();
+  })
+}
+
+function updateRole() {
+  db.addRoles()
   .then(([data]) => {
     console.log(data)
     begin();

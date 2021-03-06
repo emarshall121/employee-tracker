@@ -1,7 +1,10 @@
 DROP DATABASE IF EXISTS employees;
 CREATE DATABASE employees;
-
 USE employees; 
+
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS role;
 
 CREATE TABLE departments (
   id INT(10) AUTO_INCREMENT NOT NULL,
@@ -20,7 +23,7 @@ CREATE TABLE employee (
 
 CREATE TABLE role (
   id INT(10) AUTO_INCREMENT NOT NULL,
-  title VARCHAR(30),
+  title VARCHAR(100),
   salary DECIMAL,
   department_id INT,
   PRIMARY KEY (id)

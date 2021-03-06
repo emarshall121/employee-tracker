@@ -12,6 +12,10 @@ class DB {
   findByDepartmentId (id) {
     return this.connection.promise().query('SELECT id, name FROM departments WHERE id = ?;', id);
   }
+
+  findAllRoles () {
+    return this.connection.promise().query('SELECT id, title, salary, department_id from role;')
+  }
 }
 
 
