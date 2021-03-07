@@ -31,15 +31,50 @@ class DB {
     )
   }
 
-  addDepartment() {
+  addDepartment(string) {
     return this.connection.promise().query (
       'INSERT INTO departments SET ?',
       {
-        name: answer.deptName
+        name: string
       }
     );
   };
+
+  addRole(string, integer) {
+    return this.connection.promise().query (
+      `INSERT INTO role SET ?
+      SELECT d.name 
+      FROM departments
+      LEFT JOIN departments ON role.department_id=d.id`,
+      {
+          title: string,
+          salary: integer,
+          name: string
+        },
+    );
+  };
+
+  addEmployee(string) {
+    return this.connection.promise().query (
+      `INSERT INTO employee SET ?
+      SELECT role.title 
+      FROM role
+      LEFT JOIN role ON role.id = employee.role_id`,
+      {
+        first_name: string,
+        last_name: string,
+        role: string,
+        manager: string
+      }
+    );
+  };
+
+  updateEmployeeRole(){
+
+  }
 }
+
+
 
 
 module.exports = new DB(connection);
