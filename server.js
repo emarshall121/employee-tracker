@@ -2,6 +2,8 @@ const { prompt } = require('inquirer');
 
 const db = require('./db');
 
+let deptArray = []
+
 function begin() {
   prompt([
     {
@@ -106,6 +108,17 @@ function selectAllEmployees() {
 }
 
 function addDept() {
+  let newDept = []
+  db.findAllDepartments()
+    .then((deptData)=>{
+      deptData[0].forEach((obj)=>{
+        let dept = {
+          name: obj.Department_Name,
+          value: obj.Department_ID,
+        }
+        newDept.push(dept)
+      })
+    })
   prompt(
     {
       type: "input",
@@ -116,13 +129,27 @@ function addDept() {
   .then(function(answer){
     db.addDepartment(answer.deptName)
     .then(([answer])=>{
-      console.log(answer);
+      console.table(newDept);
       begin();
     })
   })
 }
 
 function addRole() {
+  // Pull in department info to display dept name instead of dept id
+  // let deptArray = []
+  db.findAllDepartments()
+    .then((deptData)=>{
+      deptData[0].forEach((obj)=>{
+        let dept = {
+          name: obj.Department_Name,
+          value: obj.Department_ID,
+        }
+        deptArray.push(dept)
+      })
+    })
+
+  // Prompt user for new role information
   prompt([
     {
       type: "input",
@@ -135,22 +162,33 @@ function addRole() {
       name: 'newSalary'
     },
     {
-      type: 'input',
+      type: 'list',
       message: 'What department does this role below to?',
       name: 'newRoleDept',
-      // choices: departments.map(d => ({value: d.id, name: d.name}))
+      choices: deptArray
     }
   ])
   .then(function(answer){
     db.addRole(answer.roleName, answer.newSalary, answer.newRoleDept)
     .then(([answer])=>{
-      console.table(answer);
+      console.table(deptArray);
       begin();
     })
   })
 }
 
 function addEmployee() {
+  let empArray = []
+  db.findAllEmployees()
+  .then((roleData)=>{
+    roleData[0].forEach((obj)=>{
+      let emp = {
+        name: obj.job_title,
+        value: obj.role_id,
+      }
+      empArray.push(emp)
+    })
+  })
   prompt([
     {
       type: "input",
@@ -163,10 +201,10 @@ function addEmployee() {
       name: 'empLastName'
     },
     {
-      type: 'input',
+      type: 'list',
       message: 'What is the role of this employee?',
       name: 'empRole',
-      // choices: departments.map(d => ({value: d.id, name: d.name}))
+      choices: empArray
     },
     {
       type: 'input',
@@ -178,7 +216,7 @@ function addEmployee() {
   .then(function(answer){
     db.addEmployee(answer.empFirstName, answer.empLastName, answer.empRole, answer.empManager)
     .then(([answer])=>{
-      console.table(answer);
+      console.table(empArray);
       begin();
     })
   })
@@ -209,7 +247,7 @@ function selectOne () {
       type: 'list',
       name: 'id',
       message: 'What is the department Name?',
-      choices: departments.map(d => ({value: d.id, name: d.name}))
+      choices: departments.map(d => ({value: d.Department_Name, name: d.Department_Name}))
     }
   ])
   .then(({id}) => {

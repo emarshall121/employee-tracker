@@ -40,38 +40,32 @@ class DB {
     );
   };
 
-  addRole(string, integer) {
+  addRole(string, integer, deptId) {
     return this.connection.promise().query (
-      `INSERT INTO role SET ?
-      SELECT departments.name
-      FROM departments
-      LEFT JOIN departments ON role.department_id=departments.id`,
+      `INSERT INTO role SET ?`,
       {
           title: string,
           salary: integer,
-          name: string
+          department_id: deptId
         },
     );
   };
 
-  addEmployee(string) {
+  addEmployee(first, last, roleId, integer) {
     return this.connection.promise().query (
-      `INSERT INTO employee SET ?
-      SELECT role.title 
-      FROM role
-      LEFT JOIN role ON role.id = employee.role_id`,
+      `INSERT INTO employee SET ?`,
       {
-        first_name: string,
-        last_name: string,
-        role: string,
-        manager: string
+        first_name: first,
+        last_name: last,
+        role_id: roleId,
+        manager_id: integer
       }
     );
   };
 
   updateEmployeeRole(){
 
-  }
+  };
 }
 
 
