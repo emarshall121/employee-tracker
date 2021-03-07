@@ -84,7 +84,7 @@ function begin() {
 function selectAllDept() {
   db.findAllDepartments()
   .then(([data]) => {
-    console.log(data)
+    console.table(data)
     begin();
   })
 }
@@ -92,7 +92,7 @@ function selectAllDept() {
 function selectAllRoles() {
   db.findAllRoles()
   .then(([data]) => {
-    console.log(data)
+    console.table(data)
     begin();
   })
 }
@@ -100,7 +100,7 @@ function selectAllRoles() {
 function selectAllEmployees() {
   db.findAllEmployees()
   .then(([data]) => {
-    console.log(data)
+    console.table(data)
     begin();
   })
 }
@@ -187,7 +187,7 @@ function addEmployee() {
 function selectAllDept() {
   db.findAllDepartments()
   .then(([data]) => {
-    console.log(data)
+    console.table(data)
     begin();
   })
 }

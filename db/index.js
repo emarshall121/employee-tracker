@@ -43,9 +43,9 @@ class DB {
   addRole(string, integer) {
     return this.connection.promise().query (
       `INSERT INTO role SET ?
-      SELECT d.name 
+      SELECT departments.name 
       FROM departments
-      LEFT JOIN departments ON role.department_id=d.id`,
+      LEFT JOIN departments ON role.department_id=departments.id`,
       {
           title: string,
           salary: integer,
