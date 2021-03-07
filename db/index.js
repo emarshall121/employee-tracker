@@ -6,7 +6,7 @@ class DB {
   }
 
   findAllDepartments () {
-    return this.connection.promise().query('SELECT id, name FROM departments;')
+    return this.connection.promise().query('SELECT id as Department_ID, name as Department_Name FROM departments;')
   }
 
   findByDepartmentId (id) {
@@ -43,7 +43,7 @@ class DB {
   addRole(string, integer) {
     return this.connection.promise().query (
       `INSERT INTO role SET ?
-      SELECT departments.name 
+      SELECT departments.name
       FROM departments
       LEFT JOIN departments ON role.department_id=departments.id`,
       {
